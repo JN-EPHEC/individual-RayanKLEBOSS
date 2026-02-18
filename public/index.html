@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion des Étudiants</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body onload="init()" class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="h3 mb-0">Liste des Étudiants</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="userForm" class="mb-4">
+                            <fieldset class="border p-3 rounded">
+                                <legend class="w-auto px-2">Ajouter un Étudiant</legend>
+                                <div class="row g-3">
+                                    <div class="col-md-5">
+                                        <input type="text" id="prenom" name="firstName" class="form-control"
+                                            placeholder="Prénom" required>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="nom" name="lastName" class="form-control"
+                                            placeholder="Nom" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <ul id="userList" class="list-group">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

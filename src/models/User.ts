@@ -4,24 +4,23 @@ import sequelize from '../config/database';
 class User extends Model {
   public id!: number;
   public firstName!: string;
-  public lastName?: string;
+  public lastName!: string;
 }
 
 User.init(
   {
     firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING, 
+      allowNull: false 
     },
     lastName: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
+      allowNull: false 
     },
   },
   {
-    sequelize,
-    modelName: 'User',
-    tableName: 'Users',
-    timestamps: true,
+    sequelize, 
+    modelName: 'User' 
   }
 );
 
