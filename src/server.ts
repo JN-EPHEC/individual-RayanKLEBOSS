@@ -2,20 +2,31 @@ import express, { Request, Response } from "express";
 import userRoutes from "./routes/userRoutes";
 import sequelize from "./config/database";
 import User from "./models/User";
+import { requestLogger } from "./middlewares/logger";
+import { GetAllErreur } from "./middlewares/errorHandler";
 
 const app = express();
 const PORT = 3000;
 
 // 1. MIDDLEWARES DE BASE (Toujours en premier)
+
 // Indispensable pour traiter les données envoyées par le formulaire (req.body)
 app.use(express.json()); 
 
 // Sert les fichiers du dossier public (index.html, script.js)
 app.use('/', express.static('public'));
 
+
+//activation du middlewares global
+app.use(requestLogger);
+
+app.use(GetAllErreur);
 // 2. ROUTES API
 // On branche le routeur sur /api/users pour correspondre au fetch du script.js
 app.use("/api/users", userRoutes);
+
+
+
 
 // Route /api/data synchronisée avec la base de données pour tes tests
 app.get("/api/data", async (req: Request, res: Response) => {
