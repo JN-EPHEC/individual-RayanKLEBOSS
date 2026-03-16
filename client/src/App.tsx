@@ -1,31 +1,69 @@
 import { useEffect, useState } from "react";
-import "./App.css"
-// Définition d'une interface pour le typage
-// Sera couvert plus en profondeur en TH
+import "./App.css";
+
 interface User {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
 }
+
 function App() {
-  // 1. Définition de l'état
   const [data, setData] = useState<User[]>([]);
-  // 2. Appel API au montage du composant
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     fetch("http://localhost:3000/api/data")
-      .then(res => res.json())
-      .then(result => setData(result))
-      .catch(err => console.error(err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Erreur lors de la récupération des données");
+        }
+        return res.json();
+      })
+      .then((result) => {
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Impossible de charger les utilisateurs");
+        setLoading(false);
+      });
   }, []);
-  // 3. Rendu (JSX)
+
   return (
-    <div>
+    <div className="container">
       <h1>Liste des utilisateurs</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.firstName}>{item.lastName}</li>
-        ))}
-      </ul>
+
+      {loading && <p className="loading">Chargement...</p>}
+
+      {error && <p className="error">{error}</p>}
+
+      {!loading && !error && data.length === 0 && (
+        <p>Aucun utilisateur trouvé.</p>
+      )}
+
+      {!loading && !error && data.length > 0 && (
+        <ul className="user-list">
+          {data.map((user) => (
+            <li key={user.id} className="user-card">
+              <span className="avatar">
+                {user.firstName.charAt(0).toUpperCase()}
+                {user.lastName.charAt(0).toUpperCase()}
+              </span>
+
+              <div className="user-info">
+                <p className="name">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="id">ID : {user.id}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
+
 export default App;
